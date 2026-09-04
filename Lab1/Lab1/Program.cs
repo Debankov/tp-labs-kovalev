@@ -19,8 +19,18 @@ namespace Lab1
             }
             return res;
         }
+
+        public static double A(double x)
+        {
+            double first_s = Math.Sqrt(Math.Log(4.0 / 3.0));
+            double second_s = x + (9.0 / 7.0);
+            double third_s = Math.Exp(Math.Sin(1.3 * x - 0.7));
+            double result = first_s + second_s - third_s;
+            return result;
+        }
         static void Main(string[] args)
         {
+            Console.WriteLine("Вариант 1.");
             // Задание 1. Вычислить факториал числа n, введённого пользователем. Предусмотреть проверку ввода.
             try
             {
@@ -43,7 +53,7 @@ namespace Lab1
             try
             {
                 Console.WriteLine("Введите, сколько чисел из последовательности фиббоначи вывести? (число не должно быть отрицательным или больше 70)");
-                long user_num = int.Parse(Console.ReadLine());
+                long user_num = long.Parse(Console.ReadLine());
                 if (user_num < 0 || user_num > 70)
                 {
                     throw new Exception("Заданное пользователем число не подходит под условие.");
@@ -58,12 +68,30 @@ namespace Lab1
                     first = second;
                     second = next;
                 }
+                Console.WriteLine();
             }
             catch (Exception e)
             {
                 {
                     Console.WriteLine("При вводите числа возникло исключение: " + e);
                 }
+            }
+
+            // Задание 3. Вычислить значение функции согласно варианту (значение x задаёт пользователь).
+            // Если при данном x функция не определена (отрицательное число под корнем или логарифмом, деление на ноль)
+            // — вывести понятное сообщение об ошибке.
+
+            try
+            {
+                Console.WriteLine("Введите число для подсчёта результата функции.");
+                double user_num = double.Parse(Console.ReadLine());
+                double result = A(user_num);
+                Console.WriteLine("Результат функции: " + result);
+                Console.ReadKey();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("При вводите числа возникло исключение: " + e);
             }
         }
     }
