@@ -28,15 +28,39 @@ namespace Lab1
             double result = first_s + second_s - third_s;
             return result;
         }
-        static void Main(string[] args)
+
+        static double SinTaylor(double x, double epsilon, out int termsCount)
         {
-            Console.WriteLine("Вариант 1.");
+            double sum = 0.0;
+            double term = x;
+            int n = 0;
+
+            termsCount = 0;
+
+            // Суммируем члены, пока очередной член по модулю больше ε
+            while (Math.Abs(term) > epsilon)
+            {
+                sum += term;
+                termsCount++;
+
+                // Переход к следующему члену:
+                // следующий член = текущий * (-x²) / ((2n + 2)(2n + 3))
+                term *= -x * x / ((2 * n + 2) * (2 * n + 3));
+
+                n++;
+            }
+
+            return sum;
+        }
+        
+        public static void FirstTask()
+        {
             // Задание 1. Вычислить факториал числа n, введённого пользователем. Предусмотреть проверку ввода.
             try
             {
                 Console.WriteLine("Введите число для возведения его в факториал (число не должно быть отрицательным или больше 19)");
                 long user_num = int.Parse(Console.ReadLine());
-                if (user_num < 0  || user_num > 19)
+                if (user_num < 0 || user_num > 19)
                 {
                     throw new Exception("Заданное пользователем число не подходит под условие.");
                 }
@@ -49,6 +73,10 @@ namespace Lab1
                     Console.WriteLine("При вводите числа возникло исключение: " + e);
                 }
             }
+        }
+
+        public static void SecondTask()
+        {
             // Задание 2. Вычислить последовательность чисел Фибоначчи от 0 до n и вывести её в одну строку через запятую.
             try
             {
@@ -76,7 +104,10 @@ namespace Lab1
                     Console.WriteLine("При вводите числа возникло исключение: " + e);
                 }
             }
+        }
 
+        public static void ThirdTask()
+        {
             // Задание 3. Вычислить значение функции согласно варианту (значение x задаёт пользователь).
             // Если при данном x функция не определена (отрицательное число под корнем или логарифмом, деление на ноль)
             // — вывести понятное сообщение об ошибке.
@@ -87,12 +118,48 @@ namespace Lab1
                 double user_num = double.Parse(Console.ReadLine());
                 double result = A(user_num);
                 Console.WriteLine("Результат функции: " + result);
-                Console.ReadKey();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("При вводите числа возникло исключение: " + e);
             }
+        }
+
+        public static void FourthTask()
+        {
+            //Задание 4. Вычислить сумму ряда Тейлора согласно варианту с точностью ε = 10⁻⁶
+            //(суммировать члены ряда, пока очередной член по модулю больше ε).
+            //Сравнить результат с библиотечной функцией Math, вывести оба значения и количество просуммированных членов.
+            try
+            {
+                Console.Write("Введите x: ");
+                double x = double.Parse(Console.ReadLine());
+
+                const double epsilon = 1e-6;
+
+                double taylorResult = SinTaylor(x, epsilon, out int termsCount);
+                double mathResult = Math.Sin(x);
+
+                Console.WriteLine($"Сумма ряда Тейлора: {taylorResult:F10}");
+                Console.WriteLine($"Math.Sin(x):         {mathResult:F10}");
+                Console.WriteLine($"Количество членов:   {termsCount}");
+                Console.WriteLine($"Погрешность:         {Math.Abs(taylorResult - mathResult):E}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("При вводите числа возникло исключение: " + e);
+            }
+        }
+
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Вариант 1.");
+            FirstTask();
+            SecondTask();
+            ThirdTask();
+            FourthTask();
+
         }
     }
 }
