@@ -39,6 +39,32 @@ namespace Lab1
                     Console.WriteLine("При вводите числа возникло исключение: " + e);
                 }
             }
+            // Задание 2. Вычислить последовательность чисел Фибоначчи от 0 до n и вывести её в одну строку через запятую.
+            try
+            {
+                Console.WriteLine("Введите, сколько чисел из последовательности фиббоначи вывести? (число не должно быть отрицательным или больше 70)");
+                long user_num = int.Parse(Console.ReadLine());
+                if (user_num < 0 || user_num > 70)
+                {
+                    throw new Exception("Заданное пользователем число не подходит под условие.");
+                }
+                long first = 0;
+                long second = 1;
+                for (int i = 0; i < user_num; i++)
+                {
+
+                    Console.Write(first + ", ");
+                    long next = first + second;
+                    first = second;
+                    second = next;
+                }
+            }
+            catch (Exception e)
+            {
+                {
+                    Console.WriteLine("При вводите числа возникло исключение: " + e);
+                }
+            }
         }
     }
 }
