@@ -64,12 +64,12 @@ namespace Lab5
 
               Console.WriteLine("Результаты:");
               Console.WriteLine($"Последовательный результат: {piSequential:R}");
-              Console.WriteLine($"Параллельный результат:    {piParallel:R}");
-              Console.WriteLine($"Эталонное значение Math.PI: {Math.PI:R}");
+              Console.WriteLine($"Параллельный результат: {piParallel:R}");
+              Console.WriteLine($"Эталонное значение Math.PI:{Math.PI:R}");
               Console.WriteLine();
 
               Console.WriteLine($"Время последовательной версии: {sequentialTime} мс");
-              Console.WriteLine($"Время параллельной версии:     {parallelTime} мс");
+              Console.WriteLine($"Время параллельной версии: {parallelTime} мс");
 
               if (double.IsInfinity(speedup))
                   Console.WriteLine("Ускорение: слишком маленькое время измерения");
@@ -87,15 +87,11 @@ namespace Lab5
                   Console.WriteLine("Результаты отличаются больше заданной точности.");
 
               Console.WriteLine();
-              Console.WriteLine($"Ошибка последовательного результата: " +
-                                $"{Math.Abs(Math.PI - piSequential):E}");
-              Console.WriteLine($"Ошибка параллельного результата: " +
-                                $"{Math.Abs(Math.PI - piParallel):E}");
+              Console.WriteLine("Ошибка последовательного результата: " + $"{Math.Abs(Math.PI - piSequential):E}");
+              Console.WriteLine("Ошибка параллельного результата: " + $"{Math.Abs(Math.PI - piParallel):E}");
           }
 
-          /// <summary>
-          /// Последовательное вычисление суммы Лейбница.
-          /// </summary>
+         
           static double CalculateSequential(long n)
           {
               double sum = 0.0;
@@ -113,10 +109,7 @@ namespace Lab5
               return 4.0 * sum;
           }
 
-          /// <summary>
-          /// Параллельное вычисление суммы Лейбница.
-          /// Каждый поток обрабатывает свой непрерывный диапазон членов.
-          /// </summary>
+        
           static double CalculateParallel(long n, int threadCount)
           {
               double[] partialSums = new double[threadCount];
@@ -157,8 +150,7 @@ namespace Lab5
 
               Task.WaitAll(tasks);
 
-              // Объединение частичных сумм выполняется последовательно.
-              // Это делает порядок объединения детерминированным.
+             
               double totalSum = 0.0;
 
               for (int i = 0; i < threadCount; i++)
