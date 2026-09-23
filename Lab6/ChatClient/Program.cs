@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Net.Sockets;
+using System.IO;
 
 Console.Write("Адрес сервера (Enter = localhost): ");
 string host = Console.ReadLine() is { Length: > 0 } h ? h : "localhost";

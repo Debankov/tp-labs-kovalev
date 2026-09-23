@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Taylor.App/Taylor.App.csproj" />
+  <Project Path="Taylor.Core/Taylor.Core.csproj" />
+  <Project Path="Taylor.Tests/Taylor.Tests.csproj" />
+</Solution>
